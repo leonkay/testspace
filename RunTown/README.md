@@ -17,7 +17,7 @@ Getting Started
 
 This application should be able to run on stock ruby, but the code is developed using JRuby.
 
-It is recommended that you start with a fresh gemset. In the example below, the gemset is 'appconnect-ruby' on jruby 1.7.2.
+It is recommended that you start with a fresh gemset. In the example below, the gemset is 'runtown' on jruby 1.7.2.
 
     rvm use --create jruby-1.7.2@runtown
 
