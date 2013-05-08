@@ -1,0 +1,17 @@
+source 'https://rubygems.org'
+
+# For Rest Operations
+gem 'rest-client'
+
+gem 'nokogiri'
+
+gem 'googlecalendar'
+
+gem 'json'
+
+group :debug do
+
+  # For Debugging in IDEs
+  gem 'ruby-debug'
+  gem 'ruby-debug-ide', '~> 0.4.17.beta'
+end
