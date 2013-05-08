@@ -35,14 +35,14 @@ Configuration
 -----
 In active_calendar_sync.rb, there are multiple global variables which can be set to configure the application before running
 
-ACTIVE_API_KEY: This is your Mashery Active.com api key
-KEY_WORDS: Change this Value to Search on a specific type of event
-EVENT_TYPE: Takes priority over the variable 'KEY_WORDS'. This is the category of event data you are trying to retrieve from Active.com.
-    E.G Running, Biking, etc
-GOOGLE_USER: Your google Email Address
-GOOGLE_PASS: Your Google Password
-CALENDAR_NAME: The Google Calendar to Sync active.com data with. TODO: This needs to be updated to work. Currently only works with
-    default calendar
+    ACTIVE_API_KEY: This is your Mashery Active.com api key
+    KEY_WORDS: Change this Value to Search on a specific type of event
+    EVENT_TYPE: Takes priority over the variable 'KEY_WORDS'. This is the category of event data you are trying to retrieve from Active
+        .com. E.G Running, Biking, etc
+    GOOGLE_USER: Your google Email Address
+    GOOGLE_PASS: Your Google Password
+    CALENDAR_NAME: The Google Calendar to Sync active.com data with. TODO: This needs to be updated to work. Currently only works with
+        default calendar
 
 Usage
 -----
