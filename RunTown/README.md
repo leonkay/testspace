@@ -54,7 +54,17 @@ Installation:
 
 Running the Script:
 
-    From the app directory
+From the app directory
+    rvm use jruby-1.7.2@runtown
     ruby active_calendar_sync.rb
+
+
+Enhancements
+-----
+This application currently only adds data to your calendar. Planned enhancements are
+- Sync Event data with Calendar. Currently, if an event already exists, it will still add it to the calendar.
+- Use the official Google API Gem to do Calendar Manipulation
+
+
 
 
