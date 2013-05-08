@@ -54,7 +54,7 @@ Installation:
 
 Running the Script:
 
-From the app directory
+From the app directory:
     rvm use jruby-1.7.2@runtown
     ruby active_calendar_sync.rb
 
