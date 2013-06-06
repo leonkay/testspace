@@ -1,0 +1,40 @@
+{
+    "description":"batch Activity",
+    "type":"object",
+    "properties":{
+        "id":{
+            "type":["string", "null"],
+            "readonly":true
+        },
+        "type":{
+            "type":"string",
+            "required":true,
+            "enum":["ADD_CONTACTS", "REMOVE_CONTACTS_FROM_LISTS", "CLEAR_CONTACTS_FROM_LISTS", "EXPORT_CONTACTS"]
+        },
+        "lists":{
+            "type":["array", "null"],
+            "additionalProperties":false,
+            "name":"Contact List",
+            "description":"Contactlists that the contact is a member of",
+            "displayInPOST":true,
+            "displayInPUT":true,
+            "displayInGET":true,
+            "additionalItems":false,
+            "items":{
+                "type":["object", "null"],
+                "properties":{
+                    "id":{
+                        "type":"string",
+                        "required":true,
+                        "readonly":true,
+                        "description":"Unique ID of contactlist the contact is a member of",
+                        "displayInPOST":true,
+                        "displayInPUT":true,
+                        "displayInGET":true
+                    }
+                }
+            }
+        }
+    },
+    "additionalProperties":false
+}
