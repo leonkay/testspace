@@ -8,7 +8,7 @@ class Delegate
     schema_content = file.read
     file.close
 
-    # todo: detect ruby type and use appropriate gem to parse ruby
+    # todo: detect ruby type and use appropriate gem to parse json
     parser = Yajl::Parser.new
     schema = parser.parse(schema_content)
 
@@ -19,9 +19,9 @@ class Delegate
     interpreter.translate(schema, default_name)
   end
 
-  def generate(mocks, folder_path, options)
+  def generate(mocks, folder_path, namespace, options)
     #todo: Use Options to Determine which Generator to Use
-    RubyClassGenerator.new.generate(mocks, folder_path)
+    RubyClassGenerator.new.generate(mocks, namespace, folder_path)
   end
 
   # Creates the folder structure for the specified namespace, in the provided root director

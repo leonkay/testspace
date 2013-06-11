@@ -24,7 +24,9 @@ class Schema < Thor
 
     mocks = delegate.interpret(schema_file, options)
 
-    files = delegate.generate(mocks, folder_path, options)
+    puts mocks.inspect
+
+    files = delegate.generate(mocks, folder_path, options[:namespace], options)
     puts files.inspect
 
   end

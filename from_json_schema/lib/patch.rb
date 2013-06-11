@@ -1,5 +1,23 @@
 module MyStringExtensions
 
+  def singularize
+
+    rtn = self
+    if self =~ /(.*)ses$/i
+      rtn = $~.captures[0]
+
+    elsif self =~ /(.*)s$/i
+      rtn = $~.captures[0]
+
+    elsif self =~ /(.*)dren/i
+      rtn = "#{$~.captures[0]}d"
+    end
+
+    rtn = "#{rtn}s" if rtn =~ /statu|.*addres/i
+
+    rtn
+  end
+
   def camel_case
     return self if self !~ /_/ && self =~ /[A-Z]+.*/
     split('_').map{|e| e.capitalize}.join

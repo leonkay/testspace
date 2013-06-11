@@ -26,7 +26,7 @@ class V3Interpreter < Interpreter
     type = type_node[0] # should be an array
     child_type = properties.name
     if child_type.nil?
-      child_type = name.camel_case
+      child_type = name.singularize.camel_case
     end
     # parse child elements here to determine child_type
 
@@ -57,7 +57,7 @@ class V3Interpreter < Interpreter
     type = properties.type
 
     if type.eql? "object"
-      interpret_object(name, properties.attributes)
+      obj = interpret_object(name.singularize, properties.attributes)
 
       can_null = properties.nullable?
       readonly = properties.readonly?
@@ -65,7 +65,7 @@ class V3Interpreter < Interpreter
       required = properties.required?
       options = {:is_null => can_null, :is_readonly => readonly, :description => description, :required => required}
 
-      rtn = Mock::Attribute.new(name, properties.type, options)
+      rtn = Mock::Attribute.new(name, obj.type_name, options)
     elsif type.eql? "array"
       rtn = interpret_array(name, properties)
     else
@@ -94,7 +94,7 @@ class V3Interpreter < Interpreter
     end
 
     if type == "object"
-      interpret_object(name, schema.attributes)
+      interpret_object(name.singularize, schema.attributes)
     elsif type == "array"
       name = "#{name}Array"
       interpret_array(name, schema.attributes)
