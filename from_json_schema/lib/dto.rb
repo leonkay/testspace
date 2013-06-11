@@ -118,7 +118,7 @@ class RubyClassGenerator < ClassGenerator
 
     p file, "\n\n"
 
-    tab file, "def initialize(json={})"
+    tab file, "def initialize(args={})"
     increment_tab
     canonical_model.attributes.each do |attribute|
       tab file, "@#{attribute.name} = args[:#{attribute.name}]"
@@ -179,7 +179,7 @@ class RubyClassGenerator < ClassGenerator
 
     decrement_tab
     tab file, "end"
-
+    tab file, "instance"
     decrement_tab
     tab file, "end"
     decrement_tab
