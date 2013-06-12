@@ -1,0 +1,58 @@
+require 'set'
+<% @required.each { |ruby_class|%>require_relative '<%=ruby_class%>'<% } %>
+
+
+class <%= @class_name %>
+<% @canonical_model.attributes.each do |attribute| %>
+  attr_accessor :<%= attribute.name %><% end %>
+
+
+  TYPE_HASH = {}
+<% @canonical_model.attributes.each do |attribute| %>
+  TYPE_HASH[:<%= attribute.name %>] = <%= attribute.type.camel_case %><% end %>
+
+  SUPPORTS_NULL = Set.new
+<% @canonical_model.attributes.select {|att| att.nullable? }.each do |attribute| %>
+  SUPPORTS_NULL.add(:<%=attribute.name%>)<% end %>
+
+
+  IS_ARRAY = Set.new
+<% @canonical_model.attributes.select {|att| att.array? }.each do |attribute| %>
+  IS_ARRAY.add(:<%=attribute.name%>)<% end %>
+
+
+  def initialize(args={})
+<% @canonical_model.attributes.each do |attribute| %>
+    @<%=attribute.name%> = args[:<%=attribute.name%>]<% end %>
+  end
+
+
+  class << self
+    def construct(node)
+      instance = <%=@class_name%>.new
+      node.each do |key, value|
+        symbolized_setter = "#{key}=".to_sym
+        symbolized_key = "#{key}".to_sym
+        if instance.respond_to? symbolized_setter
+          raise "#{key} does not support a null value" if value.nil? && !SUPPORTS_NULL.include?(symbolized_key)
+          raise "#{key} should be an array " if !value.nil? && IS_ARRAY.include?(symbolized_key) && !value.is_a?(Array)
+          value_type = TYPE_HASH[symbolized_key]
+          if !value.nil? && value.is_a?(Hash)
+            attribute = value_type.construct(value)
+          elsif !value.nil? && value.is_a?(Array)
+            attribute = []
+            value.each do |element|
+              attribute << value_type.construct(element)
+            end
+          else
+            raise "<%=@class_name%>.#{key} contains an invalid attribute type, should be a #{value_type}" if !value.nil? && !value.is_a?(value_type)
+            attribute = value
+          end
+          instance.send(symbolized_setter, attribute)
+        else
+          raise "#{key} is not defined on class <%=@class_name%>"
+        end
+      end
+    end
+  end
+end
